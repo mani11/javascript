@@ -18,6 +18,18 @@ Message.prototype.toString = function(){
     return `Message -> ${this.title}`;
 }
 
+//static factory method for creating differet types of message class
+Message.createMessage = function(type,title){
+    switch(type){
+        case "success":
+            return new SuccessMessage(title);
+        case "failure":
+            return new FailureMessage(title);
+        default:
+            return  new Message(title);        
+    }
+}
+
 //child class of the Message class(or function)
 function SuccessMessage(title){
    Message.call(this,title); // Calling the constructor of the parent class Message
@@ -44,16 +56,15 @@ FailureMessage.prototype = Object.create(Message.prototype);
 FailureMessage.prototype.constructor = FailureMessage;
 
 
-var message = new Message("new message");
-console.log(message.title);
+var message = Message.createMessage("default","New Message");
 message.show()
 console.log(message.toString());
 
 
-var successMessage = new SuccessMessage('Success Message');
+var successMessage = Message.createMessage('success','Success Message');
 successMessage.show();
 console.log(successMessage.toString())
 
-var failureMessage = new FailureMessage('Failure Message');
+var failureMessage = Message.createMessage('failure','Failure Message');
 failureMessage.show();
 
