@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <output></output>
+</body>
+<script>
+    if('serviceWorker' in navigator){
+          navigator.serviceWorker.register("serviceworker.js",
+          {scope : "/service-worker/"})
+          .then(registration => {
+            document.querySelector("output").innerHTML = "Service Worker Registered";
+          })
+          .catch(error => {
+            document.querySelector("output").innerHTML = "Error while registering service worker";
+          })
+    }
+    else{
+        document.querySelector("output").innerHTML = "Service Worker is nor available";
+    }
+</script>
+</html>

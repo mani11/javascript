@@ -1,3 +1,5 @@
+//Using bind always returs a new function. So bind can be used to get a function with a know context 
+// that can be called at a later point.
 class Movie{
     constructor(name){
         this.name = name;
@@ -21,6 +23,7 @@ setTimeout(movie.getMovieRating.bind(movie),2000);
 // Bind can also be used for cuurying.It is a concept of taking a function
 // that accepts N arguments and turning it into a chain series N functions
 //each taking 1 argument.
+
 function multiply(a,b){
     return a*b;
 };
