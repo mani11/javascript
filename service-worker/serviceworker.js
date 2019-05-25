@@ -1,9 +1,8 @@
 console.log("We are serveice worker");
 
-self.addEventListener("install",event => {
-    console.log("Install Event");
-});
-
-self.addEventListener("activate",event => {
-    console.log("Activate Event");
-})
+try{
+importScripts('events.js')
+}
+catch(e){
+    console.log("Error loading the files");
+}
