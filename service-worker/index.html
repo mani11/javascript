@@ -1,26 +1,73 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+
 <body>
     <output></output>
+    <button onclick="update()">Update</button>
+    <button onclick="unregister()">Unregister</button>
+    <button onclick="postData()">Clone Data</button>
 </body>
 <script>
-    if('serviceWorker' in navigator){
-          navigator.serviceWorker.register("serviceworker.js",
-          {scope : "/service-worker/"})
-          .then(registration => {
-            document.querySelector("output").innerHTML = "Service Worker Registered";
-          })
-          .catch(error => {
-            document.querySelector("output").innerHTML = "Error while registering service worker";
-          })
+    function postData(){
+        fetch("/api/weather",{
+            method:"POST",
+            body:{
+                data:["USA,Canada"]
+            }
+        })
     }
-    else{
+    function update() {
+        navigator.serviceWorker.getRegistration()
+            .then(registration => {
+                registration.update();
+            })
+    }
+    function unregister() {
+        navigator.serviceWorker.getRegistration()
+            .then(registration => {
+                registration.unregister();
+            })
+    }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register("serviceworker.js",
+            { scope: "/service-worker/" })
+            .then(registration => {
+                const scope = registration.scope;
+                document.querySelector("output").innerHTML = `Service Worker Registered at scope ${scope}`;
+            })
+            .catch(error => {
+                document.querySelector("output").innerHTML = "Error while registering service worker";
+            })
+    }
+    else {
         document.querySelector("output").innerHTML = "Service Worker is nor available";
     }
+
+    navigator.serviceWorker.getRegistration()
+        .then(registration => {
+            registration.addEventListener("updatefound", event => {
+                const swInstalling = registration.installing;
+                swInstalling.addEventListener("statechage", () => {
+                    if (swInstalling.state == "installed") {
+                        document.querySelector("output").innerHTML = "A new service worker is installed and waiting";
+                    }
+                    else{
+                        document.querySelector("output").innerHTML = "A new service worker is now controlling the page";
+                    }
+                })
+            })
+        }).catch(error => {
+
+        });
+
+
 </script>
+
 </html>
