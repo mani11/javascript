@@ -1,7 +1,7 @@
 ## Web Worker in javascript
 A small project to demonstrate the use of webworker in javascript.
 
-## Description
+### Description
 In this project, we have a list of countries and their capitals in the data.json file. We are calculating the distance between the co-ordinates from one capital city to all the other capital cities.
 After calculating the distance be
 
@@ -10,11 +10,16 @@ Hence we create a new thread in the form of a web worker - cities. Now the heavy
 
 We are passing the data to and from the web worker using the javascript postMessage.
 
-###Pre-requisites
+### Pre-requisites
 1. Text Editor (I used visual studio code)
 2. Server (I used Live server from visual studio code)
 
 ### Getting Started 
 Clone the project and launch the index.html from the server.
 Click the start button to view the web worker in action.
+
+### References
+LinkedIn Learning : https://www.linkedin.com/learning/vanilla-javascript-web-workers
+
+
 
